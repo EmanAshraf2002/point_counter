@@ -198,7 +198,7 @@ class HomePage extends StatelessWidget {
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 80),
+            padding: const EdgeInsets.only(top:30),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
@@ -213,6 +213,51 @@ class HomePage extends StatelessWidget {
             )
 
             ),
+          ),
+          const SizedBox(height: 8,),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange,
+                minimumSize: const Size(150, 50),
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    int teamAPoints = BlocProvider.of<CounterCubit>(context).teamAPoints;
+                    int teamBPoints = BlocProvider.of<CounterCubit>(context).teamBPoints;
+                    String message;
+                    if (teamAPoints > teamBPoints) {
+                      message = 'The winner is Team A 🎉🎉🎉';
+                    } else if (teamBPoints > teamAPoints) {
+                      message = 'The winner is Team  B 🎉🎉🎉';
+                    } else {
+                      message = 'It\'s a tie';
+                    }
+                    return AlertDialog(
+                      title: const Text('Winner 🏆'),
+                      content:Text('$message!'),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange,
+                          ),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: const Text('Result', style: TextStyle(
+               fontSize: 18,
+               color: Colors.black,
+          ),
+          )
+
           ),
 
         ],
